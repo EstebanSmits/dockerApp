@@ -1,0 +1,17 @@
+@page
+@model dockerApp.Pages.Books.CreateModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<html>
+<body>
+    <p>
+        Enter your name.
+    </p>
+    <div asp-validation-summary="All"></div>
+    <form method="POST">
+        <div>Title: <input asp-for="Book.Title" /></div>
+        <div>Author: <input asp-for="Book.Author" /></div>
+        <input type="submit" />
+    </form>
+</body>
+</html>

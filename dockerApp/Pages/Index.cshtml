@@ -1,0 +1,28 @@
+﻿@page
+@model dockerApp.Pages.Index.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<script src="/js/tablefilter/tablefilter.js"></script>
+<div>
+    <H1>Environment Variables</H1>
+    <Table class="environment-values" style="width:80%;">
+        <tr><th>Key</th><th>Value</th></tr>
+    @foreach (var section in Model.pageconfig)
+    {
+      <tr>
+          <td>@(section.Key)</td>
+          <td>@(section.Value)</td>
+      </tr>
+    }
+    </Table>
+    <script>
+var tf = new TableFilter(document.querySelector('.environment-values'), {
+    base_path: '/js/tablefilter/'
+});
+tf.init();
+</script>
+    <form>
+
+    </form>
+</div>

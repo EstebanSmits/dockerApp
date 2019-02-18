@@ -1,0 +1,25 @@
+# Create the 1st  named layer\intermediate image
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+# create or go into folder /app
+WORKDIR /app
+# Expose port 80
+EXPOSE 80
+## Update packages in this container
+RUN apt-get update && apt-get install 
+
+# Create the 2nd named layer\intermediate image
+FROM microsoft/dotnet:2.1-sdk AS publish
+# create or go into folder /src
+WORKDIR /src
+# Copy data from local to the container
+COPY . .
+# run dotnet build to validate the app and publish output to folder /app
+RUN dotnet publish  -o /app 
+
+# use the 1st  named layer as the start of this 4th named layer, point entry point to this named layer
+FROM base AS final
+# create or go into directory /aap
+WORKDIR /app
+#COPY --from=publish /app .
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "dockerapp.dll"]
